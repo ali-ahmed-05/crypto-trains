@@ -12,6 +12,7 @@ import BUSD from "../contract/BUSD.json"
 import Web3Modal from 'web3modal'
 import { useWeb3React } from "@web3-react/core";
 import { generate } from "../components/metadata";
+import { parse } from 'csv-parse/lib/sync';
 
 const Airdrop = () => {
 
@@ -28,6 +29,7 @@ const Airdrop = () => {
 
 
 
+    const [whiteListAddress, setWhiteListAddress] = useState([])
     const [addr, setAddr] = useState([])
     const [startTime, setStartTime] = useState()
     const [select, setSelect] = useState()
@@ -58,10 +60,10 @@ const Airdrop = () => {
             let signer = await loadProvider()
             let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
             // console.log("account", account)
-            let startSale = await NFTCrowdsaleContract.startSale(whitelist, nft_addr, startTime)
+            let startSale = await NFTCrowdsaleContract.startSale(whiteListAddress, nft_addr, startTime)
             let tx = await startSale.wait()
 
-            // console.log("startSale", startSale)
+            console.log("startSale", startSale)
         } catch (e) {
             console.log("data", e)
         }
@@ -134,6 +136,27 @@ const Airdrop = () => {
             whitelist.push(event.target.value)
             event.target.value = '';
         }
+
+    if(event.target.files.length>0){
+        let file = event.target.files[0];
+        let whiteListTempArr = [];
+        const reader = new window.FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onloadend = () => {
+            const records = parse(Buffer(reader.result), {
+                columns: false,
+                skip_empty_lines: true,
+            });
+            records.map((item)=>{
+                whiteListTempArr.push(item[0])
+            })
+            
+            setWhiteListAddress(whiteListTempArr)
+        };
+    }
+
+
+
     }
 
 
@@ -149,6 +172,10 @@ const Airdrop = () => {
             }
         })()
     }, [account]);
+
+    useEffect(() => {
+        console.log(whiteListAddress)
+    }, [whiteListAddress]);
 
 
     return (
@@ -181,7 +208,8 @@ const Airdrop = () => {
                             <Form>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Whitelist Addresses</Form.Label>
-                                    <Form.Control type="text" placeholder="Whitelist Addresses" onKeyPress={(e)=>onKeyUp(e)} />
+                                    <Form.Control type="file" placeholder="Whitelist Addresses" onChange={(e)=>onKeyUp(e)} />
+                                    {/* <Form.Control type="text" placeholder="Whitelist Addresses" onKeyPress={(e)=>onKeyUp(e)} /> */}
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">

@@ -222,7 +222,7 @@ function Header(props) {
                 MY NFTS
               </Link>
             </div>
-            {owner ? (<div>
+            {!owner ? (<div>
               <Link to="airDrop" className="custom-btn btn-white">
                 AirDrop
               </Link>
