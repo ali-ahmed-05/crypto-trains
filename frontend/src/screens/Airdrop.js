@@ -148,7 +148,7 @@ const Airdrop = () => {
                 skip_empty_lines: true,
             });
             records.map((item)=>{
-                whiteListTempArr.push(item[0])
+                whiteListTempArr.push(ethers.utils.getAddress(item[0]))
             })
             
             setWhiteListAddress(whiteListTempArr)
