@@ -70,6 +70,7 @@ contract NFTCrowdsale is Context, ReentrancyGuard,Ownable {
     uint256 public start;
     uint256 public limitationtime;
     uint256 public endTime;
+    uint256 public whitelistCount;
     mapping(address => bool) private _whitelist;
    
     constructor( address payable wallet_ ){
@@ -292,7 +293,7 @@ contract NFTCrowdsale is Context, ReentrancyGuard,Ownable {
     function _addPayee(address account) private {
         require(account != address(0), "PaymentSplitter: account is the zero address");
         _whitelist[account]=true;
-       
+        whitelistCount++;
     }
     
 
