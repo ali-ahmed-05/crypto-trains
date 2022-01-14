@@ -75,6 +75,7 @@ const Airdrop = () => {
             let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
             let startSale = await NFTCrowdsaleContract.startSale(whiteListAddress, nft_addr, startTime)
             let tx = await startSale.wait()
+            await setWhiteListAddress([]);
         } catch (e) {
             console.log("data", e)
         }
@@ -86,6 +87,7 @@ const Airdrop = () => {
             let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
             let extraWhitelist = await NFTCrowdsaleContract.add_whitelistAddresses(whiteListAddress)
             let tx = await extraWhitelist.wait()
+            await setWhiteListAddress([]);
         } catch (e) {
             console.log("data", e)
         }
@@ -95,19 +97,12 @@ const Airdrop = () => {
 
     const airDrop = async () => {
         try {
-
             let signer = await loadProvider()
             let NFTContract = new ethers.Contract(nft_addr, NFT, signer);
             let meta = generate(typeSelect)
-            // console.log({typeSelect})
             let acc = ethers.utils.getAddress( airdropAddr )
-            //  console.log("meta", meta)
-            // console.log({airdropAddr})
-
             let drop = await NFTContract.AirDrop(meta, airdropAddr, typeSelect)
             let tx = await drop.wait()
-
-            // console.log("startSale", drop)
         } catch (e) {
             console.log("data", e)
         }
@@ -123,12 +118,12 @@ const Airdrop = () => {
             setShare(ethers.utils.formatEther(myShare))
             setTotalValue(ethers.utils.formatEther(balance))    
            
-            console.log("balancee :",NFTpaymentSplitterContract)
+            console.log("balancee :",myShare)
 
 
             // console.log("taaaaaaaaaaaaiiiiiiiiiiiiinnnnnnnnnnn: ", data.toString())
         } catch (error) {
-            console.log("data :", error)
+            console.log("Account has no shares")
         }
     }
 

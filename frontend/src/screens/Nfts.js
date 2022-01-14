@@ -204,7 +204,11 @@ let journal = [
         <div className="custom-padding">
             <div className="row nft-section">
                 <h1 className="white-head">MY NFTS</h1>
+
+                {
+                    balance==0 ? (<h3 className="white-head">No NFTs</h3>):null
                 
+                }
                 {
                     zero>0 ? ( <MyNft image={train1} name={"GOODS TRAIN"} qty={zero} category={"COMMON"}/>):null
                 
