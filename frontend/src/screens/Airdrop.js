@@ -81,8 +81,21 @@ const Airdrop = () => {
             let tx = await startSale.wait()
             await setWhiteListAddress([]);
         } catch (e) {
-            console.log("data", e)
-            setError(error)
+            // console.log("data", e)
+            setError(e)
+
+            {
+                <Modal show={show} onHide={handleClose}  className='custom-modal' size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered>
+                    {e ?
+                      (<Modal.Header > <div style={{textAlign:"center"}}>
+                          <p>{error}</p>
+                          </div></Modal.Header>) : null}
+                
+            </Modal>
+            }
+
         }
     }
 
@@ -95,7 +108,7 @@ const Airdrop = () => {
         //    await setWhiteListAddress([]);
         } catch (e) {
             console.log("data", e)
-            setError(error)
+            setError(e)
         }
     }
 
@@ -111,7 +124,7 @@ const Airdrop = () => {
             let tx = await drop.wait()
         } catch (e) {
             console.log("data", e)
-            setError(error)
+            setError(e)
         }
     }
 
@@ -129,9 +142,9 @@ const Airdrop = () => {
 
 
             // console.log("taaaaaaaaaaaaiiiiiiiiiiiiinnnnnnnnnnn: ", data.toString())
-        } catch (error) {
+        } catch (e) {
             console.log("Account has no shares")
-            setError(error)
+            setError(e)
         }
     }
 
@@ -141,9 +154,9 @@ const Airdrop = () => {
             let NFTpaymentSplitterContract = new ethers.Contract(nFTpaymentSplitter_addr, NFTpaymentSplitter, signer);
             let myShare = await NFTpaymentSplitterContract.releaseBUSD(account)
             let tx = await myShare.wait()
-        } catch (error) {
-            console.log("data :", error)
-            setError(error)
+        } catch (e) {
+            console.log("data :", e)
+            setError(e)
         }
     }
     const [whitelist, setWhitelist] = useState([])
