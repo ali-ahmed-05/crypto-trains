@@ -86,17 +86,17 @@ const Airdrop = () => {
             let startSale = await NFTCrowdsaleContract.startSale(whiteListAddress, nft_addr, startTime)
             let tx = await startSale.wait()
         } catch (e) {
-            console.log("data", e)
-            console.log("hjfhj")
+            console.log("error", e)
+            // console.log("hjfhj")
             setStartsaleError(e)
-            console.log("limitation",startSaleError)
+            // console.log("limitation",startSaleError)
             handleShow()
             setError(3)
 
         }
     }
 
-    console.log("whiteList>>",whiteListAddress)
+    // console.log("whiteList>>",whiteListAddress)
 
     const addextraWhitelist = async () => {
         try {
@@ -108,7 +108,7 @@ const Airdrop = () => {
         } catch (e) {
             console.log("data", e)
             setLimitationaddrError(e)
-            console.log("limitation",limitationAddrError)
+            // console.log("limitation",limitationAddrError)
             handleShow()
             setError(1)
 
@@ -127,7 +127,7 @@ const Airdrop = () => {
             let tx = await drop.wait()
         } catch (e) {
             setAirDropError(e)
-            console.log("limitation",airDropError)
+            // console.log("limitation",airDropError)
             handleShow()
             setError(2)
         }
@@ -143,12 +143,12 @@ const Airdrop = () => {
             setShare(ethers.utils.formatEther(myShare))
             setTotalValue(ethers.utils.formatEther(balance))    
            
-            console.log("balancee :",myShare)
+            // console.log("balancee :",myShare)
 
 
             // console.log("taaaaaaaaaaaaiiiiiiiiiiiiinnnnnnnnnnn: ", data.toString())
         } catch (e) {
-            console.log("Account has no shares")
+            console.log("")
         }
     }
 
@@ -218,7 +218,7 @@ const Airdrop = () => {
     }, [account]);
 
     useEffect(() => {
-        console.log(whiteListAddress)
+        // console.log(whiteListAddress)
     }, [whiteListAddress]);
 
 
@@ -300,7 +300,7 @@ const Airdrop = () => {
                         <div className='custom-form'>
                         
                             <h1 className='text-white'>Set whitelist addresses</h1>
-                            {console.log("error>>", error)}
+                            {/* {console.log("error>>", error)} */}
                             {error == 1 ? (
                                 
                                     <Modal show={show} onHide={handleClose}  className='custom-modal' size="lg"

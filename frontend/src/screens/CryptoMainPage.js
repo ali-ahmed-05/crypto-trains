@@ -216,13 +216,13 @@ export default function CryptoMainPage() {
                         setPurchased(parseInt(userPurchased.toString()))
                         // console.log("purchased", purchased)
                         // console.log("userPurchased", userPurchased)
-                        if (tx.confirmations == 1) {
+                        if (tx.confirmations >= 1) {
                             setHeading("Finishh")
                             loadLimit()
                             // handleShow()
                         }
                         else{
-                            console.log("Error",tx.confirmations)
+                            console.log("Erroor",tx.confirmations)
                         }
                 }                            
             }else{
