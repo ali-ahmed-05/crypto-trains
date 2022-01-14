@@ -38,6 +38,8 @@ const Airdrop = () => {
     const [share,setShare]=useState()
     const [checkWhiteList, setcheckWhiteList] = useState()
     const [iswhitelist, setiswhitelist] = useState(false);
+
+    const [error, setError] = useState()
     // console.log(addr)
 
     const [typeSelect,setTypeSelect] = useState()
@@ -52,6 +54,7 @@ const Airdrop = () => {
         }
         catch (e) {
             console.log("loadProvider: ", e)
+            
         }
     }
 
@@ -59,6 +62,7 @@ const Airdrop = () => {
         try {
 
             let signer = await loadProvider()
+            setiswhitelist(false)
             let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
             let _whitelist = await NFTCrowdsaleContract.whitelist(checkWhiteList)
 
@@ -78,6 +82,7 @@ const Airdrop = () => {
             await setWhiteListAddress([]);
         } catch (e) {
             console.log("data", e)
+            setError(error)
         }
     }
 
@@ -90,6 +95,7 @@ const Airdrop = () => {
         //    await setWhiteListAddress([]);
         } catch (e) {
             console.log("data", e)
+            setError(error)
         }
     }
 
@@ -105,6 +111,7 @@ const Airdrop = () => {
             let tx = await drop.wait()
         } catch (e) {
             console.log("data", e)
+            setError(error)
         }
     }
 
@@ -124,6 +131,7 @@ const Airdrop = () => {
             // console.log("taaaaaaaaaaaaiiiiiiiiiiiiinnnnnnnnnnn: ", data.toString())
         } catch (error) {
             console.log("Account has no shares")
+            setError(error)
         }
     }
 
@@ -133,14 +141,9 @@ const Airdrop = () => {
             let NFTpaymentSplitterContract = new ethers.Contract(nFTpaymentSplitter_addr, NFTpaymentSplitter, signer);
             let myShare = await NFTpaymentSplitterContract.releaseBUSD(account)
             let tx = await myShare.wait()
-           
-
-          
-
-
-            // console.log("taaaaaaaaaaaaiiiiiiiiiiiiinnnnnnnnnnn: ", data.toString())
         } catch (error) {
             console.log("data :", error)
+            setError(error)
         }
     }
     const [whitelist, setWhitelist] = useState([])
@@ -252,33 +255,11 @@ const Airdrop = () => {
 
                             </Form>
                             <button onClick={startSale} className='custom-btn btn-white'>Submit</button>
-                            <button className='custom-btn btn-white' onClick={handleShow}>
+                            {/* <button className='custom-btn btn-white' onClick={handleShow}>
         View
-      </button>
+      </button> */}
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        className='custom-modal'>
-        <Modal.Header closeButton>
-          <Modal.Title>Whitelist</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ul className='whitelist'>
-          {whitelist.map(animal => (
-            <li>{animal}</li>
-            ))}
-          </ul>
-        </Modal.Body>
-        <Modal.Footer>
-          <button className='custom-btn btn-white'  onClick={handleClose}>
-            Close
-          </button>
-     
-        </Modal.Footer>
-      </Modal>                        </div>
+                           </div>
                     </Col>
                 </Row>
 
@@ -336,8 +317,8 @@ const Airdrop = () => {
                                             <p className="green-head">WHITELISTED</p>
                                         )
                                         
-                                            : (<p className="red-head">Not WHITELISTED</p>)
-                                            
+                                            : (<p className="red-head">Not WHITELISTED</p> )
+                                                    
                                     }
                             </p>
 
@@ -345,7 +326,7 @@ const Airdrop = () => {
                                     <Form.Label>Check WhiteList</Form.Label>
                                     <Form.Control type="text" placeholder="Check WhiteList" 
                                     onChange={(e) => 
-                                        setcheckWhiteList(e.target.value)} />
+                                        setcheckWhiteList(e.target.value)  }  />
                                           
                                 </Form.Group>
 
@@ -425,6 +406,13 @@ const Airdrop = () => {
                     </div>
                 </div>
             </div>
+
+
+
+            
+
+
+
         </div>
     );
 };
