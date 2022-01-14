@@ -293,48 +293,63 @@ const Airdrop = () => {
                     
                         <div className='custom-form'>
                         
+                            <h1 className='text-white'>Start Pre-Sale</h1>
+                            <Form>
+                                
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Start Time</Form.Label>
+                                    <Form.Control type="number" placeholder="Start Time" onChange={(e) => setStartTime(e.target.value)} />
+                                </Form.Group>
+
+                            </Form>
+                            <button onClick={addextraWhitelist} className='custom-btn btn-white'>Submit</button>
+                            {/* <button className='custom-btn btn-white' onClick={handleShow}>
+        View
+      </button> */}
+
+                     </div>
+                    </Col>
+                </Row>
+
+            </div>
+
+
+
+            <div className="container-fluid">
+           
+                <Row>
+                    <Col lg={5} className='m-auto'>
+                    
+                        <div className='custom-form'>
+                        
                             <h1 className='text-white'>Check Whitelist</h1>
                             <Form>
-                               
+                            <p className='whitelist'>
+                                {
+                                        iswhitelist == true ? (
+
+                                            <p className="green-head">WHITELISTED</p>
+                                        )
+                                        
+                                            : (<p className="red-head">Not WHITELISTED</p>)
+                                            
+                                    }
+                            </p>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Check WhiteList</Form.Label>
-                                    <Form.Control type="text" placeholder="Check WhiteList" onChange={(e) => setcheckWhiteList(e.target.value)} />  
+                                    <Form.Control type="text" placeholder="Check WhiteList" 
+                                    onChange={(e) => 
+                                        setcheckWhiteList(e.target.value)} />
+                                          
                                 </Form.Group>
 
                             </Form>
                             
                             <button className='custom-btn btn-white' onClick={handleShow1}>View</button>
 
-      <Modal
-        show={show}
-        onHide={handleClose1}
-        backdrop="static"
-        keyboard={false}
-        className='custom-modal'>
-        <Modal.Header closeButton>
-          <Modal.Title>Whitelist</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p className='whitelist'>
-          {
-                iswhitelist == true ? (
-
-                    <p className="green-head">You are WHITELISTED</p>
-                )
-                
-                    : (<p className="red-head">You are not WHITELISTED</p>)
-                    
-            }
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <button className='custom-btn btn-white'  onClick={handleClose1}>
-            Close
-          </button>
-     
-        </Modal.Footer>
-      </Modal>                        </div>
+                 </div>
                     </Col>
                 </Row>
 
