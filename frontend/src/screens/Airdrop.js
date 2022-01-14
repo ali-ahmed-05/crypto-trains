@@ -48,6 +48,8 @@ const Airdrop = () => {
     const [typeSelect,setTypeSelect] = useState()
 
     const [limitationAddrError, setLimitationaddrError] = useState()
+    const [airDropError, setAirDropError] = useState()
+    const [startSaleError, setStartsaleError] = useState()
 
     const loadProvider = async () => {
         try {
@@ -83,14 +85,18 @@ const Airdrop = () => {
             let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
             let startSale = await NFTCrowdsaleContract.startSale(whiteListAddress, nft_addr, startTime)
             let tx = await startSale.wait()
-            await setWhiteListAddress([]);
         } catch (e) {
-            // console.log("data", e)
-            // setError(e)
+            console.log("data", e)
+            console.log("hjfhj")
+            setStartsaleError(e)
+            console.log("limitation",startSaleError)
             handleShow()
+            setError(3)
 
         }
     }
+
+    console.log("whiteList>>",whiteListAddress)
 
     const addextraWhitelist = async () => {
         try {
@@ -102,6 +108,7 @@ const Airdrop = () => {
         } catch (e) {
             console.log("data", e)
             setLimitationaddrError(e)
+            console.log("limitation",limitationAddrError)
             handleShow()
             setError(1)
 
@@ -119,8 +126,10 @@ const Airdrop = () => {
             let drop = await NFTContract.AirDrop(meta, airdropAddr, typeSelect)
             let tx = await drop.wait()
         } catch (e) {
-            console.log("data", e)
-            // setError(e)
+            setAirDropError(e)
+            console.log("limitation",airDropError)
+            handleShow()
+            setError(2)
         }
     }
 
@@ -140,7 +149,6 @@ const Airdrop = () => {
             // console.log("taaaaaaaaaaaaiiiiiiiiiiiiinnnnnnnnnnn: ", data.toString())
         } catch (e) {
             console.log("Account has no shares")
-            // setError(e)
         }
     }
 
@@ -160,10 +168,10 @@ const Airdrop = () => {
 
 
     function onKeyUp(event) {
-        if (event.charCode === 13) {
-            whitelist.push(event.target.value)
-            event.target.value = '';
-        }
+        // if (event.charCode === 13) {
+        //     whitelist.push(event.target.value)
+        //     event.target.value = '';
+        // }
 
     if(event.target.files.length>0){
         let file = event.target.files[0];
@@ -241,13 +249,27 @@ const Airdrop = () => {
                         <div className='custom-form'>
                         
                             <h1 className='text-white'>Start Pre-Sale</h1>
+
+                            {error == 3 ? (
+                                
+                                <Modal show={show} onHide={handleClose}  className='custom-modal' size="lg"
+                                aria-labelledby="contained-modal-title-vcenter"
+                                centered>
+                                    <Modal.Header > <div style={{textAlign:"center"}}>
+                                          <p style={{ width:"800px", color:"red"}} >{startSaleError.message.toString() || startSaleError.toString()}</p>
+                                          </div></Modal.Header>
+                                
+                            </Modal>
+                            
+                        ): null}
+
                             <Form>
                                 <Form.Group className="mb-3" controlId="formBasicEmail" >
                                     <div style={{display:"flex", flexDirection:"row",justifyContent:"space-around" ,marginTop:"10px"}}>
                                     <Form.Label><div >Whitelist Addresses</div></Form.Label>
                                     <Form.Label ><div style={{textAlign:"right"}} >Limit 1000</div></Form.Label>
                                     </div>
-                                    <Form.Control type="file" placeholder="Whitelist Addresses" onChange={(e)=>onKeyUp2(e)} />
+                                    <Form.Control type="file" placeholder="Whitelist Addresses" onChange={(e)=>onKeyUp(e)} />
                                     {/* <Form.Control type="text" placeholder="Whitelist Addresses" onKeyPress={(e)=>onKeyUp(e)} /> */}
                                 </Form.Group>
 
@@ -285,7 +307,7 @@ const Airdrop = () => {
                                     aria-labelledby="contained-modal-title-vcenter"
                                     centered>
                                         <Modal.Header > <div style={{textAlign:"center"}}>
-                                              <p style={{border:"1px solid red", width:"800px"}} >{limitationAddrError.toString()}</p>
+                                              <p style={{width:"800px", color:"red"}} >{limitationAddrError.message.toString() || limitationAddrError.toString()}</p>
                                               </div></Modal.Header>
                                     
                                 </Modal>
@@ -363,6 +385,20 @@ const Airdrop = () => {
                     <Col lg={5} className='m-auto'>
                         <div className='custom-form'>
                             <h1 className='text-white'>Air-Drop</h1>
+
+                            {error == 2 ? (
+                                
+                                <Modal show={show} onHide={handleClose}  className='custom-modal' size="lg"
+                                aria-labelledby="contained-modal-title-vcenter"
+                                centered>
+                                    <Modal.Header > <div style={{textAlign:"center"}}>
+                                          <p style={{width:"800px", color:"red"}} >{ airDropError.message.toString() || airDropError.toString() }</p>
+                                          </div></Modal.Header>
+                                
+                            </Modal>
+                            
+                        ): null}
+
                             <Form>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Whitelist Addresses</Form.Label>
