@@ -36,6 +36,8 @@ const Airdrop = () => {
     const [airdropAddr, setAirdropAddr] = useState()
     const [totalValue,setTotalValue]=useState()
     const [share,setShare]=useState()
+    const [checkWhiteList, setcheckWhiteList] = useState()
+    const [iswhitelist, setiswhitelist] = useState(false);
     // console.log(addr)
 
     const [typeSelect,setTypeSelect] = useState()
@@ -50,6 +52,19 @@ const Airdrop = () => {
         }
         catch (e) {
             console.log("loadProvider: ", e)
+        }
+    }
+
+    const loadWhiteList = async () => {
+        try {
+
+            let signer = await loadProvider()
+            let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
+            let _whitelist = await NFTCrowdsaleContract.whitelist(checkWhiteList)
+
+            setiswhitelist(_whitelist)
+        } catch (e) {
+            console.log("data", e)
         }
     }
 
@@ -127,10 +142,15 @@ const Airdrop = () => {
         }
     }
     const [whitelist, setWhitelist] = useState([])
-    const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow1(false);
+    const handleShow = () => setShow1(true);
+
+    const [show1, setShow1] = useState(false);
+    const handleClose1 = () => setShow(false);
+    const handleShow1 = () => setShow(true);
+
     function onKeyUp(event) {
         if (event.charCode === 13) {
             whitelist.push(event.target.value)
@@ -158,6 +178,14 @@ const Airdrop = () => {
 
 
     }
+
+    function onKeyUp2(event) {
+        if (event.charCode === 13) {
+            checkWhiteList.push(event.target.value)
+            event.target.value = '';
+        }
+    }
+
 
 
     useEffect(() => {
@@ -206,9 +234,12 @@ const Airdrop = () => {
                         
                             <h1 className='text-white'>Start Pre-Sale</h1>
                             <Form>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label>Whitelist Addresses</Form.Label>
-                                    <Form.Control type="file" placeholder="Whitelist Addresses" onChange={(e)=>onKeyUp(e)} />
+                                <Form.Group className="mb-3" controlId="formBasicEmail" >
+                                    <div style={{display:"flex", flexDirection:"row",justifyContent:"space-around" ,marginTop:"10px"}}>
+                                    <Form.Label><div >Whitelist Addresses</div></Form.Label>
+                                    <Form.Label ><div style={{textAlign:"right"}} >Limit 1000</div></Form.Label>
+                                    </div>
+                                    <Form.Control type="file" placeholder="Whitelist Addresses" onChange={(e)=>onKeyUp2(e)} />
                                     {/* <Form.Control type="text" placeholder="Whitelist Addresses" onKeyPress={(e)=>onKeyUp(e)} /> */}
                                 </Form.Group>
 
@@ -250,6 +281,63 @@ const Airdrop = () => {
                 </Row>
 
             </div>
+
+
+
+            <div className="container-fluid">
+           
+                <Row>
+                    <Col lg={5} className='m-auto'>
+                    
+                        <div className='custom-form'>
+                        
+                            <h1 className='text-white'>Check Whitelist</h1>
+                            <Form>
+                               
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Check WhiteList</Form.Label>
+                                    <Form.Control type="text" placeholder="Check WhiteList" onChange={(e) => setcheckWhiteList(e.target.value)} />  
+                                </Form.Group>
+
+                            </Form>
+                            
+                            <button className='custom-btn btn-white' onClick={handleShow1}>View</button>
+
+      <Modal
+        show={show}
+        onHide={handleClose1}
+        backdrop="static"
+        keyboard={false}
+        className='custom-modal'>
+        <Modal.Header closeButton>
+          <Modal.Title>Whitelist</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p className='whitelist'>
+          {
+                iswhitelist == true ? (
+
+                    <p className="green-head">You are WHITELISTED</p>
+                )
+                
+                    : (<p className="red-head">You are not WHITELISTED</p>)
+                    
+            }
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className='custom-btn btn-white'  onClick={handleClose1}>
+            Close
+          </button>
+     
+        </Modal.Footer>
+      </Modal>                        </div>
+                    </Col>
+                </Row>
+
+            </div>
+
 
             <div className="container-fluid">
                 <Row>
