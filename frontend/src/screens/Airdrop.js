@@ -56,28 +56,17 @@ const Airdrop = () => {
 
     const startSale = async () => {
         try {
-
             let signer = await loadProvider()
             let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
-           // let NFTpaymentSplitterContract = new ethers.Contract(nFTpaymentSplitter_addr, NFTpaymentSplitter, signer);
-
-           // let estimateGas = await NFTpaymentSplitterContract.estimateGas.releaseBUSD("0x0259FC8c828255fA7b90D928b3939f6944475ba7")
-            // console.log("account", account)
-            // let _gasPrice =  22025072 * 4
-            // let options = { gasLimit: _gasPrice};
-            // let estimateGas = await NFTCrowdsaleContract.estimateGas.startSale(whiteListAddress, nft_addr, startTime,options);
-            
-           let startSale = await NFTCrowdsaleContract.startSale(whiteListAddress, nft_addr, startTime)
-            // const estimation = await erc20.estimateGas.transfer(recipient, 100);
-           let tx = await startSale.wait()
-           // console.log("startSale", estimateGas.toString())
+            let startSale = await NFTCrowdsaleContract.startSale(whiteListAddress, nft_addr, startTime)
+            let tx = await startSale.wait()
         } catch (e) {
             console.log("data", e)
         }
     }
+
     const addextraWhitelist = async () => {
         try {
-
             let signer = await loadProvider()
             let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
             let extraWhitelist = await NFTCrowdsaleContract.add_whitelistAddresses(whiteListAddress)
