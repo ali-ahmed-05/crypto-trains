@@ -13,6 +13,7 @@
   "function Train_rare() view returns (uint256)",
   "function _busdRaised() view returns (uint256)",
   "function _manager() view returns (address)",
+  "function add_whitelistAddresses(address[])",
   "function blocktime() view returns (uint256)",
   "function blocktimestamp() view returns (uint256)",
   "function buyNFTV1(uint8,string) payable",
@@ -35,7 +36,6 @@
   "function min() view returns (uint256)",
   "function owner() view returns (address)",
   "function pub() view returns (bool)",
-  "function pubPrice() view returns (uint256)",
   "function rate() view returns (uint256)",
   "function renounceOwnership()",
   "function start() view returns (uint256)",
@@ -46,6 +46,5 @@
   "function userPurchased(address) view returns (uint256)",
   "function wallet() view returns (address)",
   "function weiRaised() view returns (uint256)",
-  "function whitePrice() view returns (uint256)",
   "function whitelist(address) view returns (bool)"
 ]

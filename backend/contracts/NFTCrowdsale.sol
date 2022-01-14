@@ -30,9 +30,7 @@ contract NFTCrowdsale is Context, ReentrancyGuard,Ownable {
     uint256 private limit = 5260;
     uint256 public min;
     uint256 public max;
-    uint256 public whitePrice = 0.2 ether;
-    uint256 public pubPrice = 0.3 ether;
-
+  
     //dicounted price
     uint256 public discounted_Train_common;//0
     uint256 public discounted_Train_rare;//1
@@ -72,6 +70,7 @@ contract NFTCrowdsale is Context, ReentrancyGuard,Ownable {
     uint256 public start;
     uint256 public limitationtime;
     uint256 public endTime;
+    uint256 public whitelistCount;
     mapping(address => bool) private _whitelist;
    
     constructor( address payable wallet_ ){
@@ -112,7 +111,7 @@ contract NFTCrowdsale is Context, ReentrancyGuard,Ownable {
         require(address(_nft) != address(0), "NFT: token is the zero address");
         require(start == 0 ,"Sale already started");
         nft = NFT(_nft);
-        require(accounts.length!=0,"please provide whitelist addresses");
+        require(accounts.length!=0 && accounts.length>1000,"please provide whitelist addresses in limit");
         if(accounts.length==0){
         pub = true;
         }
@@ -126,6 +125,13 @@ contract NFTCrowdsale is Context, ReentrancyGuard,Ownable {
         start = block.timestamp + (_startTime * 1 seconds);
         limitationtime = start + 50 *  1 seconds;
         endTime = start + 2 weeks * 1 seconds;
+    }
+
+    function add_whitelistAddresses(address[] memory accounts)  public onlyOwner {
+        require(accounts.length!=0 && accounts.length>1000,"please provide whitelist addresses in limit");
+         for (uint256 i = 0; i < accounts.length; i++) {
+                _addPayee(accounts[i]);
+            }
     }
  
     fallback () external payable { 
@@ -287,7 +293,7 @@ contract NFTCrowdsale is Context, ReentrancyGuard,Ownable {
     function _addPayee(address account) private {
         require(account != address(0), "PaymentSplitter: account is the zero address");
         _whitelist[account]=true;
-       
+        whitelistCount++;
     }
     
 
