@@ -37,7 +37,7 @@ contract NFTpaymentSplitter is Context {
     address PreDevelopment = address(0x0259FC8c828255fA7b90D928b3939f6944475ba7) ;
 
     uint256[] shares_ = [2375,2375,2375,2375,500];
-    address[] payees = [address(0x3B2FA3fB4c7eD3bC495F276DC60782b635bB04d9),Development,Pool,Contingencies,PreDevelopment];
+    address[] payees = [Marketing,Development,Pool,Contingencies,PreDevelopment];
 
  constructor() payable {
         require(payees.length == shares_.length, "PaymentSplitter: payees and shares length mismatch");
