@@ -128,7 +128,7 @@ contract NFTCrowdsale is Context, ReentrancyGuard,Ownable {
     }
 
     function add_whitelistAddresses(address[] memory accounts)  public onlyOwner {
-        require(accounts.length!=0 && accounts.length>1000,"please provide whitelist addresses in limit");
+        require(accounts.length!=0 && accounts.length<=1000,"please provide whitelist addresses in limit");
          for (uint256 i = 0; i < accounts.length; i++) {
                 _addPayee(accounts[i]);
             }

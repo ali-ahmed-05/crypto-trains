@@ -87,7 +87,7 @@ const Airdrop = () => {
             let NFTCrowdsaleContract = new ethers.Contract(nftPreSale_addr, NFTCrowdsale, signer);
             let extraWhitelist = await NFTCrowdsaleContract.add_whitelistAddresses(whiteListAddress)
             let tx = await extraWhitelist.wait()
-            await setWhiteListAddress([]);
+        //    await setWhiteListAddress([]);
         } catch (e) {
             console.log("data", e)
         }
@@ -293,13 +293,17 @@ const Airdrop = () => {
                     
                         <div className='custom-form'>
                         
-                            <h1 className='text-white'>Start Pre-Sale</h1>
+                            <h1 className='text-white'>Set whitelist addresses</h1>
                             <Form>
                                 
 
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
-                                    <Form.Label>Start Time</Form.Label>
-                                    <Form.Control type="number" placeholder="Start Time" onChange={(e) => setStartTime(e.target.value)} />
+                            <Form.Group className="mb-3" controlId="formBasicEmail" >
+                                    <div style={{display:"flex", flexDirection:"row",justifyContent:"space-around" ,marginTop:"10px"}}>
+                                    <Form.Label><div >Whitelist Addresses</div></Form.Label>
+                                    <Form.Label ><div style={{textAlign:"right"}} >Limit 1000</div></Form.Label>
+                                    </div>
+                                    <Form.Control type="file" placeholder="Whitelist Addresses" onChange={(e)=>onKeyUp(e)} />
+                                    {/* <Form.Control type="text" placeholder="Whitelist Addresses" onKeyPress={(e)=>onKeyUp(e)} /> */}
                                 </Form.Group>
 
                             </Form>
@@ -347,7 +351,7 @@ const Airdrop = () => {
 
                             </Form>
                             
-                            <button className='custom-btn btn-white' onClick={handleShow1}>View</button>
+                            <button className='custom-btn btn-white' onClick={loadWhiteList}>Check</button>
 
                  </div>
                     </Col>

@@ -46,5 +46,6 @@
   "function userPurchased(address) view returns (uint256)",
   "function wallet() view returns (address)",
   "function weiRaised() view returns (uint256)",
-  "function whitelist(address) view returns (bool)"
+  "function whitelist(address) view returns (bool)",
+  "function whitelistCount() view returns (uint256)"
 ]
