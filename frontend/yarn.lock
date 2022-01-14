@@ -4816,10 +4816,32 @@
     "is-resolvable" "^1.0.0"
     "postcss" "^7.0.0"
 
+<<<<<<< HEAD
 "csso@^4.0.2":
   "integrity" "sha512-wvlcdIbf6pwKEk7vHj8/Bkc0B4ylXZruLvOgs9doS5eOsOpuodOV2zJChSpkp+pRpYQLQMeF04nr3Z68Sta9jA=="
   "resolved" "https://registry.npmjs.org/csso/-/csso-4.2.0.tgz"
   "version" "4.2.0"
+=======
+csstype@^3.0.10, csstype@^3.0.2:
+  version "3.0.10"
+  resolved "https://registry.npmjs.org/csstype/-/csstype-3.0.10.tgz"
+  integrity sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==
+
+csv-parse@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-5.0.4.tgz#97e5e654413bcf95f2714ce09bcb2be6de0eb8e3"
+  integrity sha512-5AIdl8l6n3iYQYxan5djB5eKDa+vBnhfWZtRpJTcrETWfVLYN0WSj3L9RwvgYt+psoO77juUr8TG8qpfGZifVQ==
+
+cyclist@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/cyclist/-/cyclist-1.0.1.tgz"
+  integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
+
+d@1, d@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/d/-/d-1.0.1.tgz"
+  integrity sha512-m62ShEObQ39CfralilEQRjH6oAMtNCV1xJyEx5LpRYUVN+EviphDgUc/F3hnYbADmkiNs67Y+3ylmlG7Lnu+FA==
+>>>>>>> 28117dfc89b218ada4c0d845e9fbb8736245fa5c
   dependencies:
     "css-tree" "^1.1.2"
 
