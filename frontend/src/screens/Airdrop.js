@@ -39,11 +39,15 @@ const Airdrop = () => {
     const [checkWhiteList, setcheckWhiteList] = useState()
     const [iswhitelist, setiswhitelist] = useState(false);
 
-    const [error, setError] = useState()
-    // console.log(addr)
+    const [whitelist, setWhitelist] = useState([])
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [error, setError] = useState()
     const [typeSelect,setTypeSelect] = useState()
-    // console.log("select", typeSelect)
+
+    const [limitationAddrError, setLimitationaddrError] = useState()
 
     const loadProvider = async () => {
         try {
@@ -82,19 +86,8 @@ const Airdrop = () => {
             await setWhiteListAddress([]);
         } catch (e) {
             // console.log("data", e)
-            setError(e)
-
-            {
-                <Modal show={show} onHide={handleClose}  className='custom-modal' size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered>
-                    {e ?
-                      (<Modal.Header > <div style={{textAlign:"center"}}>
-                          <p>{error}</p>
-                          </div></Modal.Header>) : null}
-                
-            </Modal>
-            }
+            // setError(e)
+            handleShow()
 
         }
     }
@@ -108,7 +101,10 @@ const Airdrop = () => {
         //    await setWhiteListAddress([]);
         } catch (e) {
             console.log("data", e)
-            setError(e)
+            setLimitationaddrError(e)
+            handleShow()
+            setError(1)
+
         }
     }
 
@@ -124,7 +120,7 @@ const Airdrop = () => {
             let tx = await drop.wait()
         } catch (e) {
             console.log("data", e)
-            setError(e)
+            // setError(e)
         }
     }
 
@@ -144,7 +140,7 @@ const Airdrop = () => {
             // console.log("taaaaaaaaaaaaiiiiiiiiiiiiinnnnnnnnnnn: ", data.toString())
         } catch (e) {
             console.log("Account has no shares")
-            setError(e)
+            // setError(e)
         }
     }
 
@@ -156,18 +152,12 @@ const Airdrop = () => {
             let tx = await myShare.wait()
         } catch (e) {
             console.log("data :", e)
-            setError(e)
+            // setError(e)
         }
     }
-    const [whitelist, setWhitelist] = useState([])
+  
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow1(false);
-    const handleShow = () => setShow1(true);
 
-    const [show1, setShow1] = useState(false);
-    const handleClose1 = () => setShow(false);
-    const handleShow1 = () => setShow(true);
 
     function onKeyUp(event) {
         if (event.charCode === 13) {
@@ -288,6 +278,20 @@ const Airdrop = () => {
                         <div className='custom-form'>
                         
                             <h1 className='text-white'>Set whitelist addresses</h1>
+                            {console.log("error>>", error)}
+                            {error == 1 ? (
+                                
+                                    <Modal show={show} onHide={handleClose}  className='custom-modal' size="lg"
+                                    aria-labelledby="contained-modal-title-vcenter"
+                                    centered>
+                                        <Modal.Header > <div style={{textAlign:"center"}}>
+                                              <p style={{border:"1px solid red", width:"800px"}} >{limitationAddrError.toString()}</p>
+                                              </div></Modal.Header>
+                                    
+                                </Modal>
+                                
+                            ): null}
+
                             <Form>
                                 
 
